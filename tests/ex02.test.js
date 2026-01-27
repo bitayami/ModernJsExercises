@@ -3,28 +3,43 @@ const {conditionalSum, ErrorMessage} = require("../exercises/ex02");
 test("sum all even numbers", () => {
   expect(conditionalSum([1, 2, 3, 4, 5], "even")).toBe(6);
 });
+
 test("sum all odd numbers", () => {
   expect(conditionalSum([1, 2, 3, 4, 5], "odd")).toBe(9);
 });
-test("sum all even numbers", () => {
+
+test("sum all even numbers with different values", () => {
   expect(conditionalSum([13, 88, 12, 44, 99], "even")).toBe(144);
 });
+
 test("return 0 if empty array", () => {
   expect(conditionalSum([], "odd")).toBe(0);
 });
 
-test("return error message if input is not an array", () => {
+test("return error message if input is undefined", () => {
   expect(conditionalSum(undefined, "even")).toBe(ErrorMessage.NOT_ARRAY_VALUES);
+});
+
+test("return error message if input is empty string", () => {
   expect(conditionalSum('', "even")).toBe(ErrorMessage.NOT_ARRAY_VALUES);
+});
+
+test("return error message if input is number", () => {
   expect(conditionalSum(123, "even")).toBe(ErrorMessage.NOT_ARRAY_VALUES);
 });
 
-test("return error message if condition is not specified", () => {
+test("return error message if condition is undefined", () => {
   expect(conditionalSum([1, 2, 3], undefined)).toBe(ErrorMessage.INVALID_CONDITION);
+});
+
+test("return error message if condition is null", () => {
   expect(conditionalSum([1, 2, 3], null)).toBe(ErrorMessage.INVALID_CONDITION);
 });
 
-test("return error message if condition is not 'even' or 'odd'", () => {
+test("return error message if condition is invalid string", () => {
   expect(conditionalSum([1, 2, 3], "hoge")).toBe(ErrorMessage.WRONG_TYPE_CONDITION);
+});
+
+test("return error message if condition is number", () => {
   expect(conditionalSum([1, 2, 3], 100)).toBe(ErrorMessage.WRONG_TYPE_CONDITION);
 });
