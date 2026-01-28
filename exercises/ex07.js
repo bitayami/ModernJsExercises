@@ -8,8 +8,28 @@ Note
 Not sure where to get started? It might be useful to start by creating a variable to keep track of how many dirty samples we find as we loop through the array of samples. We can increment or add to this number using the ++ operator. Once you know how many dirty samples there are, we just need to do some simple math to determine if it exceeds the threshold.
 */
 
+const ErrorMessages = {
+  INVALID_SAMPLES_ARRAY: "Invalid samples array",
+  SAMPLES_MUST_CONTAIN_CLEAN_OR_DIRTY: "Samples array must contain 'clean' or 'dirty' strings",
+  INVALID_THRESHOLD: "Threshold must be between 0 and 1",
+};
+
 const checkAir = function (samples, threshold) {
-  // Code here!
+  if (!Array.isArray(samples)) {
+    return ErrorMessages.INVALID_SAMPLES_ARRAY;
+  }
+
+  if (!samples.includes('clean') || !samples.includes('dirty')) {
+    return ErrorMessages.SAMPLES_MUST_CONTAIN_CLEAN_OR_DIRTY;
+  }
+
+  if (threshold < 0 || threshold > 1) {
+    return ErrorMessages.INVALID_THRESHOLD;
+  }
+
+  const dirtyRatio = samples.filter(str => str === "dirty").length / samples.length;  
+
+  return dirtyRatio > threshold ? "Polluted" : "Clean";
 };
 
 console.log(
@@ -36,4 +56,5 @@ console.log(
   checkAir(["clean", "dirty", "clean", "dirty", "clean", "dirty", "clean"], 0.9)
 ); // Clean
 
-module.exports = checkAir;
+module.exports.checkAir = checkAir;
+module.exports.ErrorMessages = ErrorMessages;
