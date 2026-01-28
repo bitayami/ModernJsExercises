@@ -19,8 +19,31 @@ Note
 Note: There may be multiple available spots for a particular vehicle. It does not matter which spot your function chooses, as long as the spot is available. And if there are no available spots, remember to return false.
 */
 
+const ErrorMessage = {
+  INVALID_VEHICLE: 'Invalid vehicle type, please choose "regular", "small", or "motorcycle".',
+}
+
 const whereCanIPark = function (spots, vehicle) {
-  // Code here!
+  if (!["regular", "small", "motorcycle"].includes(vehicle)) {
+    return ErrorMessage.INVALID_VEHICLE;
+  }
+
+  const vehicleType = {
+    regular: ["R"],
+    small: ["R", "S"],
+    motorcycle: ["R", "S", "M"],
+  };
+
+  for (let y = 0; y < spots.length; y++) {
+    for (let x = 0; x < spots[y].length; x++) {
+      const spot = spots[y][x];
+      if (vehicleType[vehicle].includes(spot)) {
+        return [x, y];
+      }
+    }
+  }
+
+  return false;
 };
 
 console.log(
@@ -65,4 +88,5 @@ console.log(
   )
 ); // [3, 1]
 
-module.exports = whereCanIPark;
+module.exports.whereCanIPark = whereCanIPark;
+module.exports.ErrorMessage = ErrorMessage;

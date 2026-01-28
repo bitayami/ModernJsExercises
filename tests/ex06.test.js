@@ -1,4 +1,4 @@
-const whereCanIPark = require("../exercises/ex06");
+const {whereCanIPark, ErrorMessage} = require("../exercises/ex06");
 
 test("return first parking spot available based on vehicle type", () => {
   expect(
@@ -43,4 +43,16 @@ test("return first parking spot available (case sensitive) based on vehicle type
       "motorcycle"
     )
   ).toStrictEqual([3, 1]);
+});
+
+test("return false for invalid vehicle type", () => {
+  expect(
+    whereCanIPark(
+      [
+        ["s", "s", "s", "s", "s", "s"],
+        ["s", "m", "s", "s", "r", "s"],
+      ],
+      "hoge"
+    )
+  ).toStrictEqual(ErrorMessage.INVALID_VEHICLE);
 });
