@@ -10,7 +10,14 @@ Create a function named instructorWithLongestName that will receive an array of 
 */
 
 const instructorWithLongestName = function (instructors) {
-  // Put your solution here
+  if (instructors.length === 0) return null;
+
+  if (instructors.length === 1) return instructors[0];
+
+  if (instructors.length > 1) {
+    instructors.sort((a, b) => b.name.length - a.name.length);
+    return instructors[0];
+  }
 };
 
 console.log(

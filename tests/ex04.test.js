@@ -20,3 +20,13 @@ test("return instructor object with longest name", () => {
     ])
   ).toStrictEqual({ name: "Domascus", course: "Web" });
 });
+
+test("return null for empty array", () => {
+  expect(instructorWithLongestName([])).toBeNull();
+});
+
+test("return the only instructor object for single element array", () => {
+  expect(
+    instructorWithLongestName([{ name: "Alice", course: "Data Science" }])
+  ).toStrictEqual({ name: "Alice", course: "Data Science" });
+});
