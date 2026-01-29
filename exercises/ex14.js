@@ -22,12 +22,52 @@ Nickel (5¢)
 Penny (1¢)
 */
 
+const ErrorMessages = {
+  EXTRA_CASH: 'Insufficient cash given.',
+  NO_CHANGE: 'Just enough cash given, no change due.',
+};
+
+const Denominations = {
+  twentyDollar: 2000,
+  tenDollar: 1000,
+  fiveDollar: 500,
+  twoDollar: 200,
+  oneDollar: 100,
+  quarter: 25,
+  dime: 10,
+  nickel: 5,
+  penny: 1,
+};
+
 const calculateChange = function (total, cash) {
-  // Your code here
+  let changeDue = cash - total;
+
+  if (changeDue === 0) {
+    return ErrorMessages.NO_CHANGE;
+  } else if (changeDue < 0) {
+    return ErrorMessages.EXTRA_CASH;
+  }
+
+  const result = {};
+
+  for (const [key, value] of Object.entries(Denominations)) {
+    if (changeDue === 0) break;
+
+    if (changeDue >= value) {
+      const count = Math.floor(changeDue / value);
+      result[key] = count;
+      changeDue -= count * value;
+    }
+  }
+
+  return result;
 };
 
 console.log(calculateChange(1787, 2000)); // { twoDollar: 1, dime: 1, penny: 3 }
 console.log(calculateChange(2623, 4000)); // { tenDollar: 1, twoDollar: 1, oneDollar: 1, quarter: 3, penny: 2 }
 console.log(calculateChange(501, 1000)); // { twoDollar: 2, quarter: 3, dime: 2, penny: 4 }
 
-module.exports = calculateChange;
+module.exports = {
+  calculateChange,
+  ErrorMessages,
+};
