@@ -19,6 +19,7 @@ const sumLargestNumbers = function (data) {
   // }
   // return largest + secondLargest;
 
+  // use Es6+ features
   const [first, second] = [...data].sort((a , b)=> b - a)
   return first + second;
 };
@@ -30,5 +31,3 @@ console.log(sumLargestNumbers([-10, -4, -34, -6, -92, -2])); // -6
 
 module.exports = sumLargestNumbers;
 
-
-//1, 5, 10, 14, 16, 19
